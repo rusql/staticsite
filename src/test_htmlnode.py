@@ -1,5 +1,5 @@
 import unittest
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -47,3 +47,25 @@ class TestHTMLNode(unittest.TestCase):
         }        
         node = HTMLNode(props=props)
         self.assertEqual("HTMLNode(tag=None, value=None, children=None, props={'href': 'https://www.google.com', 'target': '_blank'})", node.__repr__())
+
+
+class TestLeafNode(unittest.TestCase):
+    def test_error(self):
+        leaf_node = LeafNode(value=None)
+        self.assertRaises(ValueError, leaf_node.to_html)
+        
+    def test_no_props(self):
+        leaf_node = LeafNode(value="my text", tag="p")
+        self.assertEqual("<p>my text</p>", leaf_node.to_html())
+        
+    def test_no_tag(self):
+        leaf_node = LeafNode(value="my text")
+        self.assertEqual("my text", leaf_node.to_html())
+        
+    def test_with_props(self):
+        leaf_node = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
+        self.assertEqual('<a href="https://www.google.com">Click me!</a>', leaf_node.to_html())
+        
+    def test_with_no_props_positional(self):
+        leaf_node = LeafNode("p", "This is a paragraph of text.")
+        self.assertEqual('<p>This is a paragraph of text.</p>', leaf_node.to_html())

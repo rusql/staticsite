@@ -17,9 +17,21 @@ class HTMLNode:
     def __repr__(self) -> str:
         return f"HTMLNode(tag={self.tag}, value={self.value}, children={self.children}, props={self.props})"
             
-props = {
-    "href": "https://www.google.com",
-    "target": "_blank",
-}
-n = HTMLNode(tag="div", value="paragraph text", children=None, props=props)
-print(n)
+
+class LeafNode(HTMLNode):
+    def __init__(self, tag = None, value=None, props = None) -> None:
+        super().__init__(tag=tag, value=value, props=props)
+        
+    def to_html(self):
+        if self.value == None:
+            raise ValueError("value property not set for LeafNode instance")
+        
+        if self.tag == None:
+            return self.value
+        
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"   
+    
+    
+class ParentNode(HTMLNode):
+    def __init__(self, tag=None, children=None, props=None):
+        super().__init__(tag, None, children, props)
