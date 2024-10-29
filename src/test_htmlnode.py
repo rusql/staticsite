@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../src")
+
 import unittest
 from htmlnode import HTMLNode, LeafNode, ParentNode
 
@@ -168,6 +171,7 @@ class TestParentNode(unittest.TestCase):
             parent_node.to_html(),
             "<div><span><b>grandchild</b></span></div>",
         )
+        
 
     def test_to_html_many_children(self):
         node = ParentNode(
