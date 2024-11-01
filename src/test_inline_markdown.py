@@ -221,6 +221,7 @@ class TestExtractMarkdownLinks(unittest.TestCase):
             matches,
         )
         
+<<<<<<< HEAD
     def test_link_at_start(self):
         matches = extract_markdown_links(
             "[link at start](https://boot.dev) and [another link](https://blog.boot.dev)"
@@ -234,6 +235,8 @@ class TestExtractMarkdownLinks(unittest.TestCase):
         )
         
         
+=======
+>>>>>>> 9e2f3586fcc3b76b28eaad7ab63602bdad671fb6
         
 
 
